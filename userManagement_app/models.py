@@ -1,4 +1,6 @@
 from django.db import models
+
+# Import AbstractUser class 
 from django.contrib.auth.models import AbstractUser
 
 
@@ -20,10 +22,13 @@ class User(AbstractUser):
     #     (GOLD, 'Gold')
     # )
     
+    
+    # Add is_active if the user not varified their email
+    is_email_verified = models.BooleanField(default=False)
  
     # By Default Django Uses Username, we give the Email Login Functionality
     email = models.EmailField(unique=True, max_length=100)
-    
+    verification_token = models.CharField(max_length=255)
     # Add User Memebership
     # membership = models.CharField(choices=MEMBERSHIP_CHOICES, default=STANDARD, max_length=1)
     

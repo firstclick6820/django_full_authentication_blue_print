@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+        <h1>Login Page</h1>
+        <form method="POST" action="{% url 'userLogin' %}">
+                {% csrf_token %}
+                <input type='email'  name='email'  placeholder="email"/>
+                <input type='password'  name='password'  placeholder='password' />
+                <input type='submit' value="Login" />
+                <div>
+                        <p><a href="{% url 'userPasswordReset' %}">Forgot Password</a></p>
+                </div>
+
+                <div style="text-align: center;">
+                <p>Don't have an account? <a href='{% url "userRegister" %}'>Sign up</a></p>
+                
+                </div>
+        </form>
+
+{% endblock content %}

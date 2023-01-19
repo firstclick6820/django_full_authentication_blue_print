@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+
+{% block content %}
+
+
+<div class="column is-4 messages hero is-fullheight" id="message-feed">
+    
+
+    <div class="inbox-messages" id="inbox-messages">
+        {% for message in messages %}
+                 <p>{{message}}</p>
+        {% endfor %}
+            
+        
+            <p><a href="{% url 'homePage' %}">Home</a></p>
+            
+            Your Account is verified
+    </div>
+</div>
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

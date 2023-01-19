@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        {{user.username}}
+    {% else %}
+
+    <div class='container'>
+
+        <div class="background-wrap"><div class="background"></div></div>
+    
+         <form method="POST" class='formRegister' action="{% url 'userRegister' %}">
+
+            {% csrf_token %}
+            
+            <h1 id="litheader">Register</h1>
+
+            <div class="inset">
+
+                <p><input type="text" name="username" placeholder="Username"></p>
+
+
+                <p><input type="text" name="email"  placeholder="Email"></p>
+
+                <p><input type="password" name="password1"  placeholder="Password"></p>
+
+                <p><input type="password" name="password2"  placeholder="Confirm Password"></p>
+            
+                
+                
+            </div>
+
+            <p class="p-container">
+                <input type="submit" value="Register">
+            </p>
+
+            <div style="text-align: center;">
+                <p>Already have an account? <a href='{% url "userLogin" %}'>Login</a></p>
+            </div>
+
+        </form> 
+
+
+
+
+    </div>
+    {% endif %}
+
+
+{% endblock content %}
