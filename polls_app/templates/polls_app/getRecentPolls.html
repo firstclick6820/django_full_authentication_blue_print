@@ -20,7 +20,7 @@
                                     <div class="bg-red-600 w-12 h-12 flex justify-center items-center rounded-full uppercase font-bold text-white">{{poll.created_by.username|slice:":2"}}</div>
                                     <div class="ml-4">
                                         <p class="font-bold hover:underline decoration-2 hover:text-red-600 "><a href="{% url 'userProfile' poll.created_by.id %}">{{poll.created_by.username}}</a></p>
-                                        <p class="text-sm text-gray-700 mt-1">{{poll.created_by.account_type}}</p>
+                                        <p class="text-sm text-gray-700 mt-1">({{poll.created_by.account_type|capfirst}})</p>
                                     </div>
                                 </div>
                             </div>
@@ -30,22 +30,6 @@
                                 <a class="hover:underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">{{ poll.question }}</a>
                              
                             </div>  
-
-                            {% comment %} <div class="bg-gray-200 text-gray-700 text-lg px-6 py-4 flex justify-between">
-                                <a class="hover:underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">{{ poll.question }}</a>
-                                {% if user.is_authenticated %}
-                                    {% with vote_count=poll.votes.filter(user=user).count() %}
-                                        {% if vote_count > 0 %}
-                                            <p class="text-gray-600">Voted</p>
-                                        {% else %}
-                                            <a class="text-gray-600 underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">Vote</a>
-                                        {% endif %}
-                                    {% endwith %}
-                                {% else %}
-                                    <a class="text-gray-600 underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">Vote</a>
-                                {% endif %}
-                            </div> {% endcomment %}
-
 
   
 
@@ -89,4 +73,22 @@
     </main>
 {% endblock %}
 
+
+
+
+
+                            {% comment %} <div class="bg-gray-200 text-gray-700 text-lg px-6 py-4 flex justify-between">
+                                <a class="hover:underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">{{ poll.question }}</a>
+                                {% if user.is_authenticated %}
+                                    {% with vote_count=poll.votes.filter(user=user).count() %}
+                                        {% if vote_count > 0 %}
+                                            <p class="text-gray-600">Voted</p>
+                                        {% else %}
+                                            <a class="text-gray-600 underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">Vote</a>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% else %}
+                                    <a class="text-gray-600 underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">Vote</a>
+                                {% endif %}
+                            </div> {% endcomment %}
 

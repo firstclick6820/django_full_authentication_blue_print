@@ -61,7 +61,7 @@ class User(AbstractUser):
     
 # Creating Profile
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     
     bio = models.CharField(max_length=100, blank=True, null=True)
     summary = models.TextField(blank=True)

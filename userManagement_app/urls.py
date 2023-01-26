@@ -8,7 +8,8 @@ from .views import (
                      userVerifyEmail, 
                      user_password_reset, 
                      userProfile,
-                     userPasswordResetComplete)
+                     userPasswordResetComplete,
+                     userProfileSettings)
 
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
     
     # Custom URL
     path('profile/<int:pk>/', userProfile, name="userProfile"), 
+    path('settings/<int:pk>/', userProfileSettings, name='profileSettings')
 ]

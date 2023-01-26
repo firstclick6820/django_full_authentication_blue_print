@@ -14,11 +14,11 @@
         {% comment %} Based on the user type return the data {% endcomment %}
 
         {% if user_type == 'creator' %}
-        
+
             {% include 'core_app/creator.html' %}
 
         {% elif user_type == 'supporter' %}
-
+        
             {% include "core_app/supporter.html" %}
 
         {% elif user_type == 'visitor' %}

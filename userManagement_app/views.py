@@ -23,6 +23,7 @@ import uuid
 
 from .forms import CustomUserCreationForm, CustomPasswordResetForm
 from .models import Profile
+from polls_app.models import Poll
 User = get_user_model()
 
 
@@ -248,5 +249,40 @@ def userPasswordResetComplete(request):
 def userProfile(request, pk):
     user = get_object_or_404(User, id=pk)
     profile = Profile.objects.filter(user=user).first()
+    polls = Poll.objects.filter(created_by__account_type='creator', created_by__is_email_verified=True, is_published=True, is_active=True , created_by=user).order_by('-created_at')
+
     
-    return render(request, 'userManagement_app/Profile/profile.html', {'profile': profile, 'user': user})
+    return render(request, 'userManagement_app/Profile/profile.html', {'profile': profile, 'user': user, "polls": polls})
+
+
+@login_required
+def userProfileSettings(request, pk):
+    user = get_object_or_404(User, id=pk)
+    # check if the user is authenticated
+    if request.user.is_authenticated and request.user == user:
+        user = request.user
+        if request.method == "POST":
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            bio = request.POST.get('bio')
+            summary = request.POST.get('summary')
+            address=request.POST.get('address')
+            
+            user.first_name = first_name
+            user.last_name = last_name
+            user.profile.bio = bio
+            user.profile.address = address
+            user.profile.summary = summary
+            user.save()
+            user.profile.save()
+            return redirect('userProfile', user.id)
+            
+        
+        
+        
+        return render(request, 'userManagement_app/Profile/settings.html', {'user': request.user})
+
+        
+    return redirect('userLogin')
+    
+    

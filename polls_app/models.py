@@ -54,7 +54,7 @@ class Choice(models.Model):
 
 class Vote(models.Model):
     question = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='votes')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='voters')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='votes')
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     ip_address = models.GenericIPAddressField()
     vote_date = models.DateTimeField(auto_now_add=True)

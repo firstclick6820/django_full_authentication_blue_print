@@ -45,6 +45,11 @@ def getAPoll(request, pk):
 
 
 
+# Create A Poll
+def createAPoll(request):
+    return render(request, 'polls_app/createAPoll.html', {})
+
+
 
 @login_required
 def votePoll(request, question_pk):
