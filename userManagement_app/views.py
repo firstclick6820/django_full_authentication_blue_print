@@ -114,13 +114,13 @@ def userRegister(request):
             email_template_name = "userManagement_app/Auth/patterns/email_verification_email.txt"
             c = {
 					"email":user.email,
-					'domain':'127.0.0.1:8000',
+					'domain':'supervoter.onrender.com',
 					'site_name': 'MKM IT SOLUTION',
 					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
 					"user": user,
                     'name':user.username ,
 					'protocol': 'http',
-                    'link': 'http://localhost:8000/accounts/email_verify?token={}'.format(token)
+                    'link': 'http://supervoter.onrender.com/accounts/email_verify?token={}'.format(token)
 					}
                     
                     
@@ -191,7 +191,7 @@ def user_password_reset(request):
                     email_template_name = "userManagement_app/Auth/patterns/password_reset_email.txt"
                     c = {
 					"email":user.email,
-					'domain':'127.0.0.1:8000',
+					'domain':'supervoter.onrender.com',
 					'site_name': 'MKM IT SOLUTION',
 					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
 					"user": user,
