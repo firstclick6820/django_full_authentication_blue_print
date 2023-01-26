@@ -88,10 +88,24 @@ WSGI_APPLICATION = 'investment_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'supervoter',
+        'USER': 'root',
+        'PASSWORD': 'eu964z6Ey6rrw9Qra3VSLHgOBe7KApkJ',
+        'HOST': 'dpg-cf91km9gp3jqqet1cp8g-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
 

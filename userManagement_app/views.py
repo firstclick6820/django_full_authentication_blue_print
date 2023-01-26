@@ -255,6 +255,12 @@ def userProfile(request, pk):
     return render(request, 'userManagement_app/Profile/profile.html', {'profile': profile, 'user': user, "polls": polls})
 
 
+
+
+
+
+
+
 @login_required
 def userProfileSettings(request, pk):
     user = get_object_or_404(User, id=pk)

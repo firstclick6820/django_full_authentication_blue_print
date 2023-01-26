@@ -6,6 +6,7 @@ from django.contrib.auth.forms import PasswordResetForm
 
 from django.contrib.auth import get_user_model
 
+from .models import Profile
 
 
 
@@ -74,6 +75,7 @@ class CustomUserCreationForm(UserCreationForm):
             
         ) 
         user.account_type = account_type 
+        Profile.objects.create(user=user)
         user.save()
         return user
         
