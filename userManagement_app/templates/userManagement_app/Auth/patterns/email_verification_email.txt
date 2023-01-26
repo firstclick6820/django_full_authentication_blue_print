@@ -1,9 +1,13 @@
 {% autoescape off %}
 Hi {{ name }},
 
-
-We are happ you singed up for MKM IT SOLUTION, In order to start your journey with us, Please confirm your email first. 
+Thanks for signing up for Super Voter.com!
+We're happy you're here. Let's get your email address verified:
+Click to Verify Email
 {{ link }}
+
+If you’re having trouble clicking the "Verify Email Address" button, copy and paste the URL below into your web browser:
+{{link}}
 
 
 If you did not make this request, you can simply ignore this email.

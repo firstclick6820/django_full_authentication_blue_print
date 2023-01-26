@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 
-from django.contrib.auth.forms import PasswordResetForm
+
+
+from django.contrib.auth.decorators import user_passes_test
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
@@ -14,10 +16,13 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
 
+
+
 import uuid
 
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomPasswordResetForm
+from .models import Profile
 User = get_user_model()
 
 
@@ -82,6 +87,9 @@ def userRegister(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         
+        
+        
+    
         if form.is_valid():
             user = form.save()
             
@@ -116,6 +124,7 @@ def userRegister(request):
                     
                     
             email = render_to_string(email_template_name, c)
+           
             send_mail(subject, email, 'mohammadkhalidmomand@gmail.com' , [user.email], fail_silently=False)
             
 
@@ -162,9 +171,12 @@ def userVerifyEmail(request):
 
 
 # ////////////////////////////////////////////////////////////////////////////// PASSWORD RESET  /////////////////////////////////
+
+
+
 def user_password_reset(request):
     if request.method == "POST":
-        password_reset_form = PasswordResetForm(request.POST)
+        password_reset_form = CustomPasswordResetForm(request.POST)
         
         if password_reset_form.is_valid():
             
@@ -194,9 +206,47 @@ def user_password_reset(request):
                         return HttpResponse('Invalid header found.')
                     return redirect ("passwordResetDone")
                 
-    passwordResetForm = PasswordResetForm()
-    return render(request=request, template_name="userManagement_app/Auth/password/password_reset.html", context={"passwordResetForm":passwordResetForm})
+    passwordResetForm = CustomPasswordResetForm()
+    return render(request=request, template_name="userManagement_app/Auth/password/password_reset.html", context={"form":passwordResetForm})
 
 
 
-# ////////////////////////////////////////////////////////////////////////////// CHANGE PASSWORD  ////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////  PASSWORD DONE  ////////////////////////////////
+# It is a custom decorator used to prevent accessing password_reset_done page from browerser link
+def password_reset_check(user):
+    if user.is_authenticated:
+        return user.has_recently_reset_password
+    else:
+        return False
+
+
+
+@user_passes_test(password_reset_check)
+def userPasswordResetComplete(request):
+    context = {
+        'title': 'Password Reset Done',
+        'subtitle': 'Your password has been set. You may go ahead and log in now.',
+    }
+    return render(request, 'userManagement_app/Auth/password/password_reset_complete.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ////////////////////////////////////////////////////////////////////////////// User Profile  ////////////////////////////////
+
+def userProfile(request, pk):
+    user = get_object_or_404(User, id=pk)
+    profile = Profile.objects.filter(user=user).first()
+    
+    return render(request, 'userManagement_app/Profile/profile.html', {'profile': profile, 'user': user})

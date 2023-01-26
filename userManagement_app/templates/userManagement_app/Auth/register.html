@@ -3,51 +3,68 @@
 
 
 {% block content %}
+<main id="content">
+    <div id="services" class="section relative pt-20 pb-8 md:pt-16 md:pb-0 bg-white min-h-96">
+            <div class="container xl:max-w-6xl mx-auto px-4">
+                <section class=" dark:bg-gray-900">
+                    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 
-    {% if user.is_authenticated %}
-        {{user.username}}
-    {% else %}
+                        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                                    Create and account
+                                </h1>
+                                <form class="space-y-4 md:space-y-6"  method="post" action="{% url 'userRegister' %}">
+                                    {% csrf_token %}
 
-    <div class='container'>
+                                    <div>
+                                        <label for="{{ form.account_type.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.account_type.label }}</label>
+                                        <select name="{{ form.account_type.name }}" id="{{ form.account_type.id_for_label }}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            {% for choice in form.account_type.field.choices %}
+                                                <option value="{{ choice.0 }}" {% if form.account_type.value == choice.0 %} selected {% endif %}>{{ choice.1 }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
 
-        <div class="background-wrap"><div class="background"></div></div>
-    
-         <form method="POST" class='formRegister' action="{% url 'userRegister' %}">
+                                    <div>
+                                        <label for="{{ form.username.id_for_label }}"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.username.label }}</label>
+                                        <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="{{ form.username.widget.attrs.class }} bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="codewithme" {% if form.username.field.required %}required{% endif %}>
 
-            {% csrf_token %}
-            
-            <h1 id="litheader">Register</h1>
+                                    </div>
 
-            <div class="inset">
+                                    <div>
+                                        <label for="{{ form.email.id_for_label }}"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.email.label }}</label>
+                                        <input type="{{ form.email.field.widget.input_type }}" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}" class="{{ form.email.widget.attrs.class }} bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" {% if form.email.field.required %}required{% endif %}>
+                                    </div>
+                                    <div>
+                                        <label for="{{ form.password1.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                        <input type="{{ form.password1.field.widget.input_type }}" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}" class="{{ form.password1.widget.attrs.class }} bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" {% if form.password1.field.required %}required{% endif %}>
+                                    </div>
+                                    <div>
+                                        <label for="{{ form.password2.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+                                        <input type="{{ form.password2.field.widget.input_type }}" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" class="{{ form.password2.widget.attrs.class }} bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" {% if form.password2.field.required %}required{% endif %}>
 
-                <p><input type="text" name="username" placeholder="Username"></p>
-
-
-                <p><input type="text" name="email"  placeholder="Email"></p>
-
-                <p><input type="password" name="password1"  placeholder="Password"></p>
-
-                <p><input type="password" name="password2"  placeholder="Confirm Password"></p>
-            
-                
-                
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                        <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                        <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the <a class="hover:underline decoration-2 hover:text-red-600" href="#">Terms and Conditions</a></label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="w-full text-white bg-red-600 hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
+                                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                                        Already have an account? <a href="{% url 'userRegister' %}" class="hover:underline decoration-2 hover:text-red-600">Login here</a>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-
-            <p class="p-container">
-                <input type="submit" value="Register">
-            </p>
-
-            <div style="text-align: center;">
-                <p>Already have an account? <a href='{% url "userLogin" %}'>Login</a></p>
-            </div>
-
-        </form> 
-
-
-
-
     </div>
-    {% endif %}
+</main>
 
 
 {% endblock content %}

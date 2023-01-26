@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # Apps
     'userManagement_app',
     'core_app',
+    'polls_app',
     
     
     

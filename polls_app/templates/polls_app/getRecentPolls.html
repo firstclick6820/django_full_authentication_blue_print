@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+
+{% block content %}
+  
+    <main id='content'>
+
+        <div class="section relative z-0 py-16 md:pt-32 md:pb-20 bg-gray-50">
+            <div class="container xl:max-w-6xl mx-auto text-center">
+    
+                <div class="grid grid-cols-1">
+                    {% for poll in polls %}
+                        <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-10 justify-start">
+            
+                            <div class="bg-gray-200 px-6 py-4">
+                                <div class="flex items-center pt-3">
+                                    <div class="bg-red-600 w-12 h-12 flex justify-center items-center rounded-full uppercase font-bold text-white">{{poll.created_by.username|slice:":2"}}</div>
+                                    <div class="ml-4">
+                                        <p class="font-bold hover:underline decoration-2 hover:text-red-600 "><a href="{% url 'userProfile' poll.created_by.id %}">{{poll.created_by.username}}</a></p>
+                                        <p class="text-sm text-gray-700 mt-1">{{poll.created_by.account_type}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                    
+
+                          <div class="bg-gray-200 text-gray-700 text-lg px-6 py-4 flex justify-between">
+                                <a class="hover:underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">{{ poll.question }}</a>
+                             
+                            </div>  
+
+                            {% comment %} <div class="bg-gray-200 text-gray-700 text-lg px-6 py-4 flex justify-between">
+                                <a class="hover:underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">{{ poll.question }}</a>
+                                {% if user.is_authenticated %}
+                                    {% with vote_count=poll.votes.filter(user=user).count() %}
+                                        {% if vote_count > 0 %}
+                                            <p class="text-gray-600">Voted</p>
+                                        {% else %}
+                                            <a class="text-gray-600 underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">Vote</a>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% else %}
+                                    <a class="text-gray-600 underline decoration-2 hover:text-red-600" href="{% url 'getAPoll' poll.id %}">Vote</a>
+                                {% endif %}
+                            </div> {% endcomment %}
+
+
+  
+
+
+                    
+                            <div class="px-6 py-4 border-t border-gray-200 flex justify-between">
+                                <div class="w-full">
+                                    {% for choice in poll.choices.all %}
+                                        <div class="border rounded-lg bg-red-200 p-2 mb-1" style="width:{{ choice.vote_percentage }}%;">
+                                            <p class="flex justify-between gap-2">
+                                                <span style=" white-space: nowrap;">{{ choice.choice_text }}</span><span>{{ choice.vote_percentage }}%</span>
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            
+                            
+        
+                            
+                            
+                            
+            
+            
+                            <div class="px-6 py-4 border-t border-gray-200 flex justify-between">
+                                <p class="font-bold">Poll Ends: </p>
+                                <p>{{ poll.end_date|timeuntil }}</p>
+                            </div>
+            
+                            <div class="px-6 py-4 border-t border-gray-200 flex justify-between">
+                                <p>Votes:  <span class="font-bold">{{poll.total_votes }}</span></p>
+                                <p>Views:  <span class="font-bold">{{poll.views}} </span></p>
+                                <p>Status: {% if poll.is_active %}  <span class="font-bold">Active </span>{% else %}  <span class="font-bold">Inactive </span>{% endif %}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+

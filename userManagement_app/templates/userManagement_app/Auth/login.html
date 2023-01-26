@@ -1,23 +1,61 @@
 {% extends "base.html" %}
+{% load static %}
 
 
 
 
 {% block content %}
-        <h1>Login Page</h1>
-        <form method="POST" action="{% url 'userLogin' %}">
-                {% csrf_token %}
-                <input type='email'  name='email'  placeholder="email"/>
-                <input type='password'  name='password'  placeholder='password' />
-                <input type='submit' value="Login" />
-                <div>
-                        <p><a href="{% url 'userPasswordReset' %}">Forgot Password</a></p>
-                </div>
+<main id="content">
+        <div id="services" class="section relative pt-20 pb-8 md:pt-16 md:pb-0 bg-white min-h-96">
+                <div class="container xl:max-w-6xl mx-auto px-4">
 
-                <div style="text-align: center;">
-                <p>Don't have an account? <a href='{% url "userRegister" %}'>Sign up</a></p>
-                
-                </div>
-        </form>
+                        <section class=" dark:bg-gray-900">
+                                <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                                   
+                                    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                                        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                                            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                                                Login
+                                            </h1>
+                                            <form class="space-y-4 md:space-y-6" method="POST" action="{% url 'userLogin' %}">
+                                                {% csrf_token %}
+                                                <div>
+                                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                                    <input type="email" name="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                                                </div>
+                                                
+                                                <div>
+                                                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                                    <input type="password" name="password" name="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                                                </div>
 
+                                                <div>
+                                                     <a  class="hover:underline decoration-2 hover:text-red-600" href="{% url 'userPasswordReset' %}">Forgot Password</a>
+                                                </div>
+                                        
+                        
+                                           
+                                                <button type="submit" class="w-full text-white bg-red-600 hover:bg-primary-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
+
+                                                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                                                    Don't have an account? <a href="{% url 'userRegister' %}" class="hover:underline decoration-2 hover:text-red-600">Create One</a>
+                                                </p>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                              </section>
+                      
+                </div>
+        </div>
+</main>
 {% endblock content %}
+
+
+<h1>Login Page</h1>
+<form method="POST" action="{% url 'userLogin' %}">
+        {% csrf_token %}
+        <input type='email'  name='email'  placeholder="email"/>
+        <input type='password'  name='password'  placeholder='password' />
+        <input type='submit' value="Login" />
+      

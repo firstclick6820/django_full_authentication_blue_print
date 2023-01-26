@@ -1,0 +1,88 @@
+{% extends "noNavbarBase.html" %}
+{% load static %}
+
+
+
+
+{% block content %}
+  
+  <main id='content' class="grid grid-cols-1">
+  
+      {% comment %} Button Go Back {% endcomment %}
+      <div class="mt-5 item">
+        <div class="w-full">
+          <div class="flex py-4 px-16">
+              <a href="{% url 'homePage' %}" class="flex gap-1">
+                
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                  </svg>
+                  <p class="m-auto text-xl font-semibold text-center text-gray-800">Back to Polls Lists</p>
+              </a>
+          </div>
+      </div>
+
+
+      {% comment %} Profile {% endcomment %}
+      <div class="section relative z-0 py-16 md:pt-10 md:pb-20 bg-gray-50 item">
+          <div class="container xl:max-w-6xl mx-auto px-4 text-center">
+
+            <div class="p-8 bg-white shadow mt-4">
+                <div class="grid grid-cols-1 md:grid-cols-3">
+
+                  <div class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
+
+                      <div>
+                          <p class="font-bold text-gray-700 text-xl">1000</p>
+                          <p class="text-gray-400">Votes</p>
+                      </div>
+                      <div>
+                          <p class="font-bold text-gray-700 text-xl">{{user.polls.count }}</p>
+                          <p class="text-gray-400">Polls</p>
+                      </div>
+
+                      <div>
+                        <p class="font-bold text-gray-700 text-xl">89</p>
+                          <p class="text-gray-400">Followers</p>
+                      </div>
+                  </div>
+
+                  <div class="relative">
+                    <div class="w-48 h-48 bg-slate-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-red-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+              
+                  <div class="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
+                      <button class="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">Contact</button>
+                      <button class="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">Message</button>
+                  </div>
+
+                </div>
+              
+                <div class="mt-20 text-center border-b pb-12">
+                  <h1 class="text-4xl font-medium text-gray-700">{{profile.user.username}}</h1>
+                  <p class="font-light text-gray-600 mt-3">Bucharest, Romania</p>
+              
+                  <p class="mt-8 text-gray-500">{{profile.bio }}</p>
+                  <p class="mt-2 text-gray-500">{{profile.summary}}</p>
+                </div>
+              
+                <div class="mt-12 flex flex-col justify-center">
+                      <p class="text-gray-600 text-center font-light lg:px-16">An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>
+                      <button
+                  class="text-indigo-500 py-2 px-4  font-medium mt-4"
+                  >
+                  Show more
+                  </button>
+                </div>
+
+            </div>
+        </div>
+      </div>
+  </main>
+
+
+{% endblock content %}

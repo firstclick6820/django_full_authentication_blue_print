@@ -1,18 +1,36 @@
 {% extends "base.html" %}
+{% load static %}
 
 
 
 
 {% block content %}
-    <h1>Home Page</h1>
+    <main id='content'>
+        {% comment %} Hero Section {% endcomment %}
+        {% include "core_app/hero.html" %}
 
-    {% if user.is_authenticated %}
-        <h3> {{ user.username }}</h3>
-        <a href="{% url 'userLogout' %}">Logout</a>
-        <a href="{% url 'userPasswordReset' %}">Password Reset</a>
-    {% else %}
-        <a href="{% url 'userLogin' %}">Login</a>
-    {% endif %}
 
+
+        {% comment %} Based on the user type return the data {% endcomment %}
+
+        {% if user_type == 'creator' %}
+        
+            {% include 'core_app/creator.html' %}
+
+        {% elif user_type == 'supporter' %}
+
+            {% include "core_app/supporter.html" %}
+
+        {% elif user_type == 'visitor' %}
+
+            {% include "core_app/visitor.html" %}
+            
+        {% endif %}
+            
+
+    </main>
 
 {% endblock content %}
+
+
+
