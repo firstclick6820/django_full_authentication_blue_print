@@ -18,7 +18,6 @@ User = get_user_model()
 #///////////////////////////////////////////////////////////// REGISTRATION FORM  /////////////////////////////////////////
 class CustomUserCreationForm(UserCreationForm):
     
-    username = forms.CharField(label='Username', min_length=5, max_length=32)
     email = forms.EmailField(label='Email')
     ACCOUNT_TYPE_CHOICES = [
         ('creator', 'I am a content Creator'),
@@ -28,8 +27,8 @@ class CustomUserCreationForm(UserCreationForm):
     
     class Meta:
         model =  get_user_model()
-        fields = ('username', 'email', 'password1', 'password2', 'account_type')
-        exclude = ('first_name', 'last_name',)
+        fields = ('email', 'password1', 'password2', 'account_type')
+        exclude = ('username',)
         labels = {
             'password1': 'Password',
             'password2': 'Confirm Password'
@@ -39,15 +38,7 @@ class CustomUserCreationForm(UserCreationForm):
             'password2': forms.PasswordInput()
         }
         
-        
-        
-    def username_clean(self):
-        username = self.cleaned_data['username'].lower()
-        new = User.objects.filter(username=username)
-        
-        if new.count():
-            raise ValidationError("User Already Exist")  
-        return username  
+  
     
     def email_clean(self):
         email = self.cleaned_data['email'].lower()
@@ -68,8 +59,7 @@ class CustomUserCreationForm(UserCreationForm):
     def save(self, commit = True):
         account_type = self.cleaned_data['account_type'] 
           
-        user = User.objects.create_user(  
-            self.cleaned_data['username'],  
+        user = User.objects.create_user(   
             self.cleaned_data['email'],  
             self.cleaned_data['password1'],
             
